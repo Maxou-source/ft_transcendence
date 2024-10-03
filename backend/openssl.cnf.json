@@ -1,0 +1,29 @@
+{
+    "prompt": null,
+    "default_md": "sha256",
+    "distinguished_name": {
+      "C": "",
+      "ST": "",
+      "L": "",
+      "O": "",
+      "OU": "",
+      "CN": ""
+    },
+    "req_extensions": {
+      "keyUsage": [
+        "digitalSignature",
+        "nonRepudiation",
+        "keyEncipherment",
+        "dataEncipherment"
+      ],
+      "subjectAltName": [
+        "@alt_names"
+      ]
+    },
+    "alt_names": [
+      {
+        "type": "DNS",
+        "name": "*"
+      }
+    ]
+  }

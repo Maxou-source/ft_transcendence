@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">  
+    {% block title %}
+    {% endblock %}
+    <meta name="description" content="Votre super acceuil">
+    <!-- <div id="token-div" data-token="{{ token }}"></div> -->
+    <link rel="icon" href="/app/static/images/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/png">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"></script>
+     <!-- BOOSTRAP  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="modulepreload" href="{% static 'js/game/pong.js' %}" />
+    <script src="{% static 'js/parameters/paramsMain.js' %}" type="module"></script>
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    <script src="{% static 'js/main.js' %}" type="module">
+    </script>
+    {% block script %}
+    {% endblock %}
+</head>
+
+<body>
+    <div id="info-current-user" type="hidden" login="{{ login }}"> </div>
+    <div class="ctn-page">
+        <!-- START MODALS -->
+        <div id="avatar-modal" class="wrap-modal">
+            <div class="ctn-page-modal">
+                <svg
+                    id="close-avatar"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-x"
+                >
+                    <path d="M18 6 6 18"/>
+                    <path d="m6 6 12 12"/>
+                </svg>
+                <div class="ctn-modal-ttl">
+                    <h2>
+                        Modifier votre avatar
+                    </h2>
+                    <span>
+                        L'image doit être au format jpg. La taille du fichier ne doit pas dépasser 3 Mo.
+                    </span>
+                </div>
+                <div class="ctn-user-img avatar-modal">
+                    <img
+                        src="{{ newimage }}"
+                        id="change-avatar-img"
+                        alt="{{ login }} profil image"
+                    >
+                    <input
+                        type="file"
+                        id="avatar-input"
+                    >
+                </div>
+                <div class="ctn-buttons-avatar">
+                    <button
+                        id="submit-avatar-btn"
+                    >
+                        Enregistrer
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- END MODALS -->
+        <div id="sidebar" class="ctn-left" style="height: 100%;">
+                <svg id="sidebarReducer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-menu">
+                <line x1="4" x2="20" y1="12" y2="12" />
+                <line x1="4" x2="20" y1="6" y2="6" />
+                <line x1="4" x2="20" y1="18" y2="18" />
+            </svg>
+
+            <a target="_blank" href='https://profile.intra.42.fr/users/{{ login }}' class="wrap-user">
+                <div class="ctn-user-img">
+                    <img src="{{ newimage }}" alt="{{ first_name }} profil image">
+                </div>
+                <div class="wrap-user-info">
+                    <p>Bonjour {{ login }}</p>
+                    <span>Membre depuis
+                        <label>
+                            {{ pool_year }}
+                        </label>
+                    </span>
+                    <span>
+                        Wallet
+                        <label>
+                            {{ wallet }} ₳
+                        </label>
+                    </span>
+                    <span>
+                        🎮
+                        <label>
+                            {{ location }}
+                        </label>
+                    </span>
+                </div>
+                <div class="border-btm"></div>
+            </a>
+            {% load static %}
+            <script src="{% static 'js/main.js' %}" type="module"></script>
+            <div class="wrap-redirects gap-0 column-gap-3">
+                <!-- <a id="leaderboardAnchor" class="wrap-redirect">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
+                    </svg>
+                    <span>Home</span>
+                </a> -->
+                <a id="GameAnchor" class="wrap-redirect p-2 g-col-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-gamepad-2">
+                        <line x1="6" x2="10" y1="11" y2="11" />
+                        <line x1="8" x2="8" y1="9" y2="13" />
+                        <line x1="15" x2="15.01" y1="12" y2="12" />
+                        <line x1="18" x2="18.01" y1="10" y2="10" />
+                        <path
+                            d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z" />
+                    </svg>
+                    <span>Jouer une partie</span>
+                </a>
+                <a id="FriendsAnchor" class="wrap-redirect p-2 g-col-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="lucide lucide-book-user">
+                    <path d="M15 13a3 3 0 1 0-6 0"/>
+                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/>
+                    <circle cx="12" cy="8" r="2"/></svg>
+                    <span>Mes amis</span>
+                </a>
+                <a id="ParamsAnchor" class="wrap-redirect p-2 g-col-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-cog">
+                        <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" />
+                        <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                        <path d="M12 2v2" />
+                        <path d="M12 22v-2" />
+                        <path d="m17 20.66-1-1.73" />
+                        <path d="M11 10.27 7 3.34" />
+                        <path d="m20.66 17-1.73-1" />
+                        <path d="m3.34 7 1.73 1" />
+                        <path d="M14 12h8" />
+                        <path d="M2 12h2" />
+                        <path d="m20.66 7-1.73 1" />
+                        <path d="m3.34 17 1.73-1" />
+                        <path d="m17 3.34-1 1.73" />
+                        <path d="m11 13.73-4 6.93" />
+                    </svg>
+                    <span>Mes paramètres</span>
+                </a>
+                <a class="wrap-redirect p-2 g-col-6" id="StatisticsAnchor">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-area-chart">
+                        <path d="M3 3v18h18" />
+                        <path d="M7 12v5h12V8l-5 5-4-4Z" />
+                    </svg>
+                    <span>Mes statistiques</span>
+                </a>
+                <div id="logoutButton" class="wrap-redirect p-2 g-col-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-log-out">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" x2="9" y1="12" y2="12" />
+                    </svg>
+                    <span>Me déconnecter</span>
+                </div>
+                <div class="border-btm"></div>
+            </div>
+            <div class="ctn-love">
+                <span>
+                    Construit avec amour ❤️
+                </span>
+                <span>
+                    © 2024
+                </span>
+            </div>
+        </div>
+        <div class="ctn-right">
+            <img alt="" class="main-bg-img" style="height: 100%;"
+                src="https://transcendance-assets.s3.eu-north-1.amazonaws.com/5927911.gif">
+            <!-- <section class="page-wrapper"> -->
+                <div class="wrap-content" id="wrapper">
+            </div>
+            <!-- </section> -->
+             
+            <!-- Friend Request Button Example -->
+
+                <!-- {% block content %}
+            {% endblock %} -->
+        </div>
+    </div>
+
+</body>
+
+</html>
+

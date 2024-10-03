@@ -1,0 +1,31 @@
+{% if gamesPlayed %}
+    <h1 style="color: white;">Statistics and User History </h1>
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    <div class="last-games-table">
+        <ul style="color: white;">
+            {% for history in user_histories %}
+                <!-- <li>
+                    Opponent: {{ history.opponent }} | Score: {{ history.userScore }} - {{ history.otherScore }} | Mode: {{ history.mode }} | Date: {{ history.date }}
+                </li> -->
+                <div>
+                    <div class="score-holder {% if history.userScore > history.otherScore %}win{% else %}lose{% endif %}">
+                        {{ history.userScore }} - {{ history.otherScore }}
+                    </div>
+                    against {{ history.opponent }}  | {{ history.date|date:"Y-m-d" }}
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="numbers">
+        Total point scored
+        <div class="number-box">
+            {{ point_scored }}
+        </div>
+        Average
+        <div class="number-box">
+            {{ average }}
+        </div>
+    </div>
+{% else %}
+    <h1 style="color:white">No games played online yet !!!!</h1>
+{% endif %}

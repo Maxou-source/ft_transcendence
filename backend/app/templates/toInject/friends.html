@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connected Users and Friends</title>
+    <style>
+        .container {
+            display: flex;
+            width: 200%;
+            max-width: 2400px;
+        }
+        .column {
+            position: relative;
+            width: 70%;
+            padding: 20px;
+            background-color: #00000088;
+            border-radius: 10px;
+            overflow: hidden;  
+        }
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0082c88a;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .button svg {
+            fill: rgb(255, 255, 255);
+            width: 20px;
+            height: 20px;
+        }
+		.status-indicator {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+	<body>
+		<div id="token-div" data-token="{{ token }}"></div>
+    	<h1 style="color:white;">Mes amis</h1>
+    	<div class="container" id="net">
+        	<div class="column">
+            	<h1 style="color:white">Users</h1>
+            	<ul style="list-style: none; padding: 0;">
+                	{% if users_are_connected %}
+						{% for user in users %}
+							{% if user.login != current_user.login %}
+								<li style="color:white; display: flex; align-items: center; margin-bottom: 10px;">
+									<img style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;" src="{{ user.image }}">
+										{{ user.pseudo }}
+									<button name="add-friends-button" class="button" data-user-id="{{ user.id42 }}" data-current-user="{{ current_user.id42 }}">
+										<svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+											<rect x="10" y="4" width="4" height="16"/>
+											<rect x="4" y="10" width="16" height="4"/>
+										</svg>
+									</button>
+									<div class="status-indicator">
+										<svg height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+											<circle r="5" cx="10" cy="10" fill="{{ user.connected|yesno:'green,red' }}" />
+										</svg>
+									</div>
+								</li>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+        	<div class="column">
+            	<h1 style="color:white">Friends</h1>
+            	<ul style="list-style: none; padding: 0;">
+                	{% if friends %}
+                	    {% for friend in FriendList %}
+                	        <li style="color:white; display: flex; align-items: center; margin-bottom: 10px;">
+								<a href="/profile/{{ friend.login }}">
+                	            <img style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;" src="{{ friend.image }}">
+								</a>
+                	            {{ friend.pseudo }}
+								<button name="rem-friends-button" class="button" data-user-id="{{ friend.id42 }}" data-current-user="{{ current_user.id42 }}">
+									<svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                	                    <rect x="4" y="10" width="16" height="4"/>
+                	                </svg>
+								</button>
+								
+								<button name="chat-friends-button" class="button" data-user-id="{{ friend.id42 }}"  data-chat-rooms="{{ friend.chatroom }}" 
+								 data-current-user="{{ current_user.id42 }}">
+									<svg fill="#000000" height="800px" width="800px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+										viewBox="0 0 60 60" xml:space="preserve">
+									<path d="M30,1.5c-16.542,0-30,12.112-30,27c0,5.205,1.647,10.246,4.768,14.604c-0.591,6.537-2.175,11.39-4.475,13.689
+										c-0.304,0.304-0.38,0.769-0.188,1.153C0.276,58.289,0.625,58.5,1,58.5c0.046,0,0.093-0.003,0.14-0.01
+										c0.405-0.057,9.813-1.412,16.617-5.338C21.622,54.711,25.738,55.5,30,55.5c16.542,0,30-12.112,30-27S46.542,1.5,30,1.5z"/>
+									</svg>
+								</button>
+								<button name="block-user" class="button-user" data-user-id="{{ friend.id42 }}"  data-chat-rooms="{{ friend.chatroom }}" 
+								 data-current-user="{{ current_user.id42 }}">
+								block
+								</button>
+								<div class="status-indicator">
+									<svg height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+										<circle r="5" cx="10" cy="10" fill="{{ friend.connected|yesno:'green,red' }}" />
+									</svg>
+								</div>
+                	        </li>
+                	    {% endfor %}
+                	{% endif %}
+            	</ul>
+        	</div>
+    	</div>
+	</body>
+</html>

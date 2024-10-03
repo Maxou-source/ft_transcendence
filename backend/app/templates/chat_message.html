@@ -1,0 +1,17 @@
+{% if message.author == user %}
+<div class="message-author">
+	<div style="color:red; position: relative; display: flex; flex-direction: row;">
+		<span><span style="color:black;">Me</span> {{ message.body }}</span>
+	</div>
+</div>
+<hr>
+{% else %}
+<div class="message-else">
+	<div>
+		<div style="color:blue;">
+			<span><span style="color:black">{{ message.author.pseudo }}</span> {{ message.body }}</span>
+		</div>  
+	</div>
+</div>
+<hr>
+{% endif %}

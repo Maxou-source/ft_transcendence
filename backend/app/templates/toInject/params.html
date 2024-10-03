@@ -1,0 +1,88 @@
+<div class="ctn-title">
+    <h1>
+        Mes paramètres
+    </h1>
+    <div class="ctn-badges params">
+        <span>
+            Compte crée le 17 mai 2024 
+        </span>
+    </div>
+</div>
+<div class="ctn-change-form">
+    <div class="ctn-change-img">
+        <div class="ctn-user-img params">
+            <img
+                src="{{ newimage }}"
+                alt="{{ login }} profil image"
+            >
+        </div>
+        <div class="ctn-changeimg-txt">
+            <h2>
+                Modifier votre avatar
+            </h2>
+            <p>
+                En appuyant sur modifier vous pouvez changer d'avatar. Il sera visible par les autres joueurs dans le leaderboard ou quand vous lancere une partie.
+            </p>
+            <button
+               id="modify-avatar"
+            >
+                Modifier
+            </button>
+        </div>
+    </div>
+    <div class="ctn-changeimg-txt infos">
+        <h2>
+            Modifier vos informations
+        </h2>
+        <p>
+            Modifier les informations de votre compte ici. Votre pseudo est visible par les autres utilisateurs.
+        </p>
+        <form
+            id="info-form"
+            method="POST"
+            class="wrap-infos-inpt"
+        >
+            <div class="wrap-dbl-inpt">
+                <div class="ctn-inpt">
+                    <input
+                        id="fname"
+                        type="text"
+                        autocomplete="off"
+                        value="{{ first_name }}"
+                    >
+                    <label>
+                        Prénom
+                    </label>
+                </div>
+                <div class="ctn-inpt">
+                    <input
+                        id="lname"
+                        type="text"
+                        autocomplete="off"
+                        value="{{ last_name }}"
+                    >                                    
+                    <label>
+                        Nom
+                    </label>
+                </div>
+            </div>
+            <div class="ctn-inpt">
+                <input
+                    id="pseudo"
+                    type="text"
+                    autocomplete="off"
+                    value="{{ pseudo }}"
+                >
+                <label>
+                    Pseudo
+                </label>
+            </div>
+            <button
+                type="submit"
+            >
+                Enregistrer
+            </button>
+            </form>
+        </div>
+    </div>
+</div>

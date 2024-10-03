@@ -1,0 +1,23 @@
+{% if blocked %}
+	<div>
+		<h1>This user blocked you or you've blocked him!</h1>
+	<div>
+{% else %}
+	<div id="chat_messages" hx-swap-oob="beforeend">
+
+		<div class="fade-in-up">
+		{% include 'chat_message.html' %}
+		</div>
+		
+		<style>
+			@keyframes fadeInAndUp {
+				from { opacity: 0; transform: translateY(12px); }
+				to { opacity: 1; transform: translateX(0px); }
+			}
+		
+			.fade-in-up {
+				animation: fadeInAndUp 0.6s ease;
+			}
+		</style>
+	</div>
+{% endif %}

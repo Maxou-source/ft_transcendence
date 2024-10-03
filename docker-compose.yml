@@ -1,0 +1,75 @@
+services:
+  vault:
+    build: ./vault
+    image: "vault:latest"
+    container_name: vault
+    environment:
+      VAULT_ADDR: "http://0.0.0.0:8200"
+    ports:
+      - "8200:8200"
+    networks:
+      - transcendence
+    depends_on:
+      - db
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - vault-data:/vault/data
+      - vault-logs:/vault/logs
+      - ./vault/config:/vault/config
+    command: vault server -config=/vault/config/config.hcl
+  backend:
+    build: ./backend
+    volumes:
+      - .:/backend
+      - ./backend/app:/app
+    ports:
+      - 8000:8000
+    environment:
+      - LOCALHOST
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - transcendence
+  db:
+    image: postgres:15
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+      - django:/usr/share/postgresql/data/
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    networks:
+      - transcendence
+  redis:
+    image: redis:6.2
+    networks:
+      - transcendence
+  nginx:
+    pull_policy: never
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - 8443:8443
+    env_file:
+      - .env
+    networks:
+      - transcendence
+    depends_on:
+      - backend
+    volumes:
+      - ./backend/app/media:/app/backend/app/media
+networks:
+  transcendence:
+    driver: bridge
+volumes:
+  db_data:
+  django:
+  vault-data:
+  vault-logs:

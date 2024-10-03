@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE modsecurity PUBLIC
+        "-//Trustwave//DTD ModSecurity v2.9.0//EN"
+        "http://www.modsecurity.org/dtd/modsecurity_2_9_0.dtd">
+<modsecurity>
+    <ServerSignature OFF />
+    <LocationMatch "/.*">
+        <IfModule mod_security.c>
+            <SecRuleEngine DetectionOnly />
+            <SecRule REQUEST_URI "@streq /admin/" "id:'123',phase:1,t:none,nolog,pass"
+                "msg:'Accès interdit à l'administration'"
+                "severity:'10',tag:'application,access'"
+                "setvar:'tx.msg=%{msg}'"
+                "setvar:'tx.status=403'"
+                "setvar:'tx.anomaly_score=100'" />
+
+            <!-- Exemple d'une règle pour bloquer les scripts malveillants -->
+            <SecRule ARGS "<(script)" "chain,t:none,nolog,pass"
+                "msg:'Script détecté'"
+                "severity:'8',tag:'application,attack'"
+                "setvar:'tx.msg=%{msg}'"
+                "setvar:'tx.status=403'"
+                "setvar:'tx.anomaly_score=50'" />
+
+            <SecRule ARGS "</(script)" "chain,t:none,nolog,pass"
+                "msg:'Fin de script détectée'"
+                "severity:'8',tag:'application,attack'"
+                "setvar:'tx.msg=%{msg}'"
+                "setvar:'tx.status=403'"
+                "setvar:'tx.anomaly_score=50'" />
+        </IfModule>
+    </LocationMatch>
+</modsecurity>

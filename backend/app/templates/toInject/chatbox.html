@@ -1,0 +1,20 @@
+<div class="chat-container p-2" id="chat-container" >
+	<ul class="messages_list">
+		
+	</ul>
+</div>
+<div class="sticky bottom-0 p-2">
+	<form class="w-full"
+		hx-ext="ws"
+		ws-connect="/ws/chatroom/"
+		ws-send
+		_="on htmx:wsAfterSend reset() me scrollToBottom()"
+		>
+	</form>
+	<input id="csrfinput" type="hidden" name="csrfmiddlewaretoken">
+	<p id="keep" type="hidden"> </p>
+	{{ form }}
+</div>
+<div>
+	<button id="playWithFriendButton" data-user-id="{{ friend.id42 }}" data-current-user="{{ current_user }}" > Play with your friend! </button>
+</div>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <link rel="icon" href="\app\static\images\favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <title>
+        ft_trans
+    </title>
+    <!-- <link rel="icon" type="image/x-icon" href="https://cdn.discordapp.com/attachments/1086231358470373397/1235989469761638430/Pixel-Art-Burger_1.png?ex=66366065&is=66350ee5&hm=b2f43ebf7889a656f7b4e6f296ac24cfbee88f04bd2ba20c0bbe1f15c210bc42&"> -->
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    >
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    >
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    >
+    <link
+      href="https://fonts.googleapis.com/css2?family=Helvetica&display=swap"
+      rel="stylesheet"
+    >
+  </head>
+  <style>
+    html, body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+      min-width: 100vh;
+      min-height: 100vh;
+      width: 100%;
+      font-family: 'Poppins', sans-serif !important;
+      font-size: 16px;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url('https://transcendance-assets.s3.eu-north-1.amazonaws.com/232639433-cb0aea21-66f0-4508-a771-85e2089c5a87.gif');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+
+    .bouton {
+      gap: 10px;
+      display: flex;
+      background-color: white;
+      color: #111;
+      text-align: center;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 25px;
+      transition: all .2s ease;
+    }
+
+    .bouton img {
+      width: 40px;
+      transition: all .2s ease;
+    }
+
+    .bouton:hover img {
+      transform: rotate(360deg);
+    }
+
+    .bouton:hover {
+      letter-spacing: 2px;
+      transform: scale(1.01);
+      opacity: 0.99;
+    }
+
+    .text-positioned {
+      position: absolute;
+      top: 10vh;
+      left: 10vw;
+    }
+
+    .text-positioned2 {
+      position: absolute;
+      top: 60vh;
+      left: 60vw;
+    }
+  </style>
+  <body>
+    <a id="dynamicLink" class="bouton" href="#" data-uri="{{ LINK }}">
+      Connectez-vous avec
+      <img alt="42 logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/42_Logo.svg/768px-42_Logo.svg.png">
+    </a>
+
+    <script>
+      const uri = document.getElementById('dynamicLink').getAttribute('data-uri');
+      document.getElementById('dynamicLink').setAttribute('href', uri);
+    </script>
+  </body>
+</html>
